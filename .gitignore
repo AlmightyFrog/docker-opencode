@@ -1,0 +1,8 @@
+# local env overrides — build.env is intentionally tracked
+.env
+.env.*
+
+# editor / OS cruft
+.vscode/
+*.swp
+.DS_Store

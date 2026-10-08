@@ -1,0 +1,19 @@
+name: opencode build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, dev]
+    paths: ['Dockerfile', 'entrypoint.sh', 'config/**', '.dockerignore', 'build.env', '.github/workflows/**']
+  pull_request:
+    branches: [main, dev]
+  schedule:
+    - cron: '23 1 * * 0'
+
+jobs:
+  build:
+    if: ${{ github.event.pull_request.head.repo.fork != true }}
+    permissions:
+      contents: read
+      packages: write
+    uses: AlmightyFrog/workflow-templates/.github/workflows/docker-build.yml@v1

@@ -1,0 +1,13 @@
+name: opencode cleanup
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 2 * * *'
+
+jobs:
+  cleanup:
+    permissions:
+      contents: read
+      packages: write
+    uses: AlmightyFrog/workflow-templates/.github/workflows/docker-cleanup.yml@v1
