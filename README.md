@@ -29,6 +29,20 @@ docker run --rm --entrypoint cat ghcr.io/almightyfrog/opencode /etc/image-versio
 ```
 
 
+## Bash alias
+
+For daily use — it also underlines the throwaway character: just the
+mounted folder, no state kept. Add to your `~/.bashrc`:
+
+```sh
+alias opencode_live='docker run --init --rm -it -v "$PWD:/workspace" ghcr.io/almightyfrog/opencode'
+```
+
+The single quotes matter: `$PWD` expands when you call the alias, not when
+the shell starts. Run `opencode_live` in any folder to open the TUI on it,
+or pass arguments through — `opencode_live bash`, `opencode_live run "explain this workspace"`.
+
+
 ## Persistence
 Please note following mounts are both not sufficient tested and might be subject to change, but they are good guess...
 
