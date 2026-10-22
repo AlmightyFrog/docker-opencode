@@ -1,0 +1,32 @@
+name: opencode upstream
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 2 * * *'
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+  IMAGE: ghcr.io/almightyfrog/opencode
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: compare latest upstream vs published image, re-run build on change
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          latest=$(curl -fsSL https://opencode.ai/update/api/latest/cli/npm \
+            | python3 -c 'import json,sys; print(json.load(sys.stdin)["version"])')
+          built=$(docker run --rm "$IMAGE" --version | awk '{print $NF}' | sed 's/^v//')
+          echo "upstream=$latest image=$built"
+          if [ "$latest" = "$built" ]; then
+              echo "no new opencode release, nothing to do"
+          else
+              gh workflow run "opencode build" -R "$GITHUB_REPOSITORY" --ref main
+          fi

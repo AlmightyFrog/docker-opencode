@@ -4,9 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches: [main, dev]
-    paths: ['Dockerfile', 'entrypoint.sh', 'config/**', '.dockerignore', 'build.env', '.github/workflows/**']
+    paths-ignore: &ignore-rules ['**.md', 'docs/**', '.gitignore', 'LICENSE', 'install.sh', 'opencode-live.sh', 'opencode-share.sh', 'opencode-update.sh']
   pull_request:
     branches: [main, dev]
+    paths-ignore: *ignore-rules
   schedule:
     - cron: '23 1 * * 0'
 
