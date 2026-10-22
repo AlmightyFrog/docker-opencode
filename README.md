@@ -29,7 +29,6 @@ opencode-share                       # keeps the session in .opencode-session.js
 
 ## Tips
 
-- mount the current dir into `/workspace`, run from any folder
 - show what's baked into the image:
   `docker run --rm --entrypoint cat ghcr.io/almightyfrog/opencode /etc/image-versions`
 - keep session history: mount `.opencode/data` as the container's data dir, see [docs/persistence.md](docs/persistence.md)

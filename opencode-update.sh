@@ -26,7 +26,6 @@ while [ $# -gt 0 ]; do
     case "$1" in
         --image) pull=1 ;;
         --scripts) scripts=1 ;;
-        --all) pull=1 scripts=1 ;;
         -h|--help) usage; exit 0 ;;
         *) echo "unknown option: $1 (see 'opencode-update --help')" >&2; exit 1 ;;
     esac
@@ -49,5 +48,5 @@ if [ "$scripts" = 1 ]; then
         mv "$tmp/$script" "$BIN/$script"
         chmod 0755 "$BIN/$script"
     done
-    echo "    done (idempotent with the alias; no bashrc changes needed)"
+    echo "    done"
 fi

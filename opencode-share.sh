@@ -9,9 +9,9 @@
 # Environment variables ending in _API_KEY are forwarded into the container.
 #
 # usage:
-#   ./opencode-share.sh                  opens the interactive TUI
-#   ./opencode-share.sh run "prompt"     one-off prompt; all arguments are passed
-#                                        through to the opencode CLI
+#   opencode-share                  opens the interactive TUI
+#   opencode-share run "prompt"     one-off prompt; all arguments are passed
+#                                   through to the opencode CLI
 #
 # environment:
 #   OPENCODE_IMAGE  container image                     (default ghcr.io/almightyfrog/opencode)

@@ -55,7 +55,7 @@ trap 'rm -rf "$tmp"' EXIT
 for script in opencode-live opencode-share opencode-update; do
     echo "==> $BIN/$script"
     curl -fsSL "$RAW/$script.sh" -o "$tmp/$script"
-    cat "$tmp/$script" > "$BIN/$script"
+    mv "$tmp/$script" "$BIN/$script"
     chmod 0755 "$BIN/$script"
 done
 
