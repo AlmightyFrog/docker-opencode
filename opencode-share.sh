@@ -27,7 +27,7 @@ case "$SF" in "$PWD"/*) SF="${SF#"$PWD"/}" ;; ./*) SF="${SF#./}" ;; esac  # rela
 
 envargs=()
 while read -r k; do envargs+=(-e "$k"); done < <(compgen -e | grep '_API_KEY$' || true)
-tty=(); [ -t 0 ] && [ -t 1 ] && tty=(-it)
+tty=(); if [ -t 0 ] && [ -t 1 ]; then tty=(-it); fi
 
 cfg=()
 if [ -n "${HOST_CONFIG:-}" ] && [ "${HOST_CONFIG:-}" != 0 ]; then
@@ -39,8 +39,8 @@ if [ -n "${HOST_CONFIG:-}" ] && [ "${HOST_CONFIG:-}" != 0 ]; then
     fi
 fi
 
-docker run --init --rm "${tty[@]}" "${envargs[@]}" "${cfg[@]}" -v "$PWD:/workspace" \
-    "$IMAGE" bash -c '
+docker run --init --rm "${tty[@]+"${tty[@]}"}" "${envargs[@]+"${envargs[@]}"}" \
+    "${cfg[@]+"${cfg[@]}"}" -v "$PWD:/workspace" "$IMAGE" bash -c '
 set -u
 S="/workspace/$1"; shift
 if [ -f "$S" ]; then

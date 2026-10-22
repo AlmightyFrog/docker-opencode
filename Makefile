@@ -21,6 +21,9 @@ run: ## run TUI, current dir mounted at /workspace
 shell: ## bash shell, current dir mounted at /workspace
 	docker run --init --rm -it -v $$PWD:/workspace $(IMG) bash
 
+install: ## install helper scripts to ~/.local/bin (idempotent, no repo checkout needed)
+	sh ./install.sh
+
 smoke: ## non-interactive check: version, tools, subcommand routing
 	docker run --rm $(IMG) --version
 	docker run --rm $(IMG) bash -c 'opencode --version && uv --version \
